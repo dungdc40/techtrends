@@ -1,0 +1,9 @@
+apiVersion: v1
+name: techtrends
+description: Techtrends app
+keywords:
+- techtrends
+version: 1.0.0
+maintainers:
+- name: dzung 
+  email: dzungdotrung@gmail.com
