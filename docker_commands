@@ -7,55 +7,40 @@ docker run -d -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
-winpty docker exec -it cranky_dewdney bash
-cat app.log
+docker logs -f $(docker ps | grep techtrends | tr " " "\n" | tail -1)
+
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
-INFO:app:str_date_time, message
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:32:38] "GET /about HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:32:38] "GET /static/css/main.css HTTP/1.1" 304 -
-WARNING:werkzeug: * Running on all addresses.
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
-INFO:werkzeug: * Running on http://192.168.5.15:3111/ (Press CTRL+C to quit)
-INFO:app:08/04/2022, 09:33:13, About us retrieved
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:13] "GET /about HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:13] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:30] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:30] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:Articled 2020 CNCF Annual Report retrieved
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:31] "GET /1 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:33:31] "GET /static/css/main.css HTTP/1.1" 304 -
-WARNING:werkzeug: * Running on all addresses.
+   Use a production WSGI server instead.
+ * Debug mode: off
+08/16/2022, 05:03:56 -  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
-INFO:werkzeug: * Running on http://192.168.5.15:3111/ (Press CTRL+C to quit)
-INFO:app:08/04/2022, 09:34:34, Articled 2020 CNCF Annual Report retrieved
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:34:34] "GET /1 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:34:34] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:08/04/2022, 09:37:58, Articled with id 31231 doesn not exist
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:37:58] "GET /31231 HTTP/1.1" 404 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:37:58] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:27] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:27] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:29] "GET /create HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:29] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:08/04/2022, 09:38:34, A new article with title Check post has been created
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:34] "POST /create HTTP/1.1" 302 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:34] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [04/Aug/2022 09:38:34] "GET /static/css/main.css HTTP/1.1" 304 -
-WARNING:werkzeug: * Running on all addresses.
+08/16/2022, 05:03:56 -  * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
+08/16/2022, 05:03:56 -  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
-INFO:werkzeug: * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:08] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:08] "GET /static/css/main.css HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:08] "GET /favicon.ico HTTP/1.1" 404 -
-INFO:app:08/04/2022, 04:25:11, About us retrieved
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:11] "GET /about HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:11] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:15] "GET /create HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:15] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:08/04/2022, 04:25:19, A new article with title Test post has been created
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:19] "POST /create HTTP/1.1" 302 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:19] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 04:25:19] "GET /static/css/main.css HTTP/1.1" 304 -
-INFO:app:08/04/2022, 05:29:35, Metrics request successfull
-INFO:werkzeug:172.17.0.1 - - [04/Aug/2022 05:29:35] "GET /metrics HTTP/1.1" 200 -
+08/16/2022, 05:03:56 -  * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
+08/16/2022, 05:03:56 - About us retrieved
+08/16/2022, 05:03:56 - About us retrieved
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:37] "GET /about HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:37] "GET /about HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:37] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:37] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:41] "GET /create HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:41] "GET /create HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:41] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:41] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - A new article with title 123 has been created
+08/16/2022, 05:03:56 - A new article with title 123 has been created
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "POST /create HTTP/1.1" 302 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "POST /create HTTP/1.1" 302 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "GET / HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "GET / HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:45] "GET /static/css/main.css HTTP/1.1" 304 -
+08/16/2022, 05:03:56 - Metrics request successfull
+08/16/2022, 05:03:56 - Metrics request successfull
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:54] "GET /metrics HTTP/1.1" 200 -
+08/16/2022, 05:03:56 - 172.17.0.1 - - [16/Aug/2022 05:04:54] "GET /metrics HTTP/1.1" 200 -

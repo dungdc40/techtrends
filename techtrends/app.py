@@ -4,6 +4,7 @@ from flask import Flask, jsonify, json, render_template, request, url_for, redir
 from werkzeug.exceptions import abort
 from datetime import datetime
 import time
+import sys
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -19,13 +20,13 @@ def get_db_connection():
     return connection
 
 
-def write_log(message):
-    timestamp = time.time()
-    date_time = datetime.fromtimestamp(timestamp)
-    str_date_time = date_time.strftime("%m/%d/%Y, %H:%M:%S")
+# def write_log(message):
+#     timestamp = time.time()
+#     date_time = datetime.fromtimestamp(timestamp)
+#     str_date_time = date_time.strftime("%m/%d/%Y, %H:%M:%S")
 
-    message = f"{str_date_time}, {message}"
-    app.logger.info(message)
+#     message = f"{str_date_time}, {message}"
+#     app.logger.info(message)
 
 # Function to get a post using its ID
 
@@ -60,10 +61,10 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        write_log(f"Article with id {post_id} does not exist")
+        app.logger.info(f"Article with id {post_id} does not exist")
         return render_template('404.html'), 404
     else:
-        write_log(f"Article {post['title']} retrieved")
+        app.logger.info(f"Article {post['title']} retrieved")
         return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -71,7 +72,7 @@ def post(post_id):
 
 @app.route('/about')
 def about():
-    write_log(f"About us retrieved")
+    app.logger.info(f"About us retrieved")
     return render_template('about.html')
 
 # Define the post creation functionality
@@ -91,7 +92,8 @@ def create():
                                (title, content))
             connection.commit()
             connection.close()
-            write_log(f"A new article with title {title} has been created")
+            app.logger.info(
+                f"A new article with title {title} has been created")
             return redirect(url_for('index'))
 
     return render_template('create.html')
@@ -104,7 +106,7 @@ def healthz():
         status=200,
         mimetype='application/json'
     )
-    write_log('Status request successfull')
+    app.logger.info('Status request successfull')
     return response
 
 
@@ -120,12 +122,24 @@ def metrics():
         mimetype='application/json'
     )
 
-    write_log('Metrics request successfull')
+    app.logger.info('Metrics request successfull')
     return response
 
 
 # start the application on port 3111
 if __name__ == "__main__":
-    # Stream logs to a file, and set the default log level to DEBUG
-    logging.basicConfig(filename='app.log', level=logging.DEBUG, force=True)
+    # set logger to handle STDOUT and STDERR
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    handlers = [stderr_handler, stdout_handler]
+
+    # format output
+    timestamp = time.time()
+    date_time = datetime.fromtimestamp(timestamp)
+    str_date_time = date_time.strftime("%m/%d/%Y, %H:%M:%S")
+    format_output = f"{str_date_time} - %(message)s"
+
+    logging.basicConfig(format=format_output,
+                        level=logging.DEBUG, handlers=handlers)
+
     app.run(host='0.0.0.0', port='3111')
